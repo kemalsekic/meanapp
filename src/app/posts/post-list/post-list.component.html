@@ -6,8 +6,17 @@
     <p>{{post.content}}</p>
     <mat-action-row>
       <button mat-button color="primary">EDIT</button>
-      <button mat-button color="warn">DELETE</button>
+      <button mat-button color="warn" (click) = "onDelete(post.id)">DELETE</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
 <p class="info-text mat-body-1" *ngIf="posts.length <= 0"> No posts added yet!</p>
+<div style="width: 640px; height: 480px; margin: 10px; position: relative;">
+  <iframe
+    allowfullscreen
+    frameborder="0"
+    style="width:640px; height:480px"
+    src="https://www.lucidchart.com/documents/embeddedchart/5816009d-2043-42a6-9f02-74ff2104999e"
+    id="3SaTMoCwDbS-">
+  </iframe>
+</div>
