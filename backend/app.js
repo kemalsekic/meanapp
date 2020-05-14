@@ -8,7 +8,6 @@ const userRoutes = require("./routes/user");
 
 const app = express();
 
-app.use(bodyParser.json());
 mongoose.connect("mongodb+srv://kemalsekic:" + process.env.MONGO_ATLAS_PW + "@cluster0-id557.mongodb.net/kremica?")
   .then(() => {
     console.log('Connected to database!')
