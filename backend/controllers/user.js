@@ -1,11 +1,8 @@
-const express = require("express");
-<<<<<<< HEAD
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-const router = express.Router();
 
-router.post("/signup", (req, res, next) => {
+exports.createUser = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
   .then(hash => {
     const user = new User({
@@ -21,13 +18,13 @@ router.post("/signup", (req, res, next) => {
       })
       .catch(err => {
         res.status(500).json({
-          error: err
+          message: "Invalid authentication credentials!"
         });
       });
   });
-});
+}
 
-router.post("/login", (req, res, next) => {
+exports.userLogin = (req, res, next) => {
   let fetchedUser;
   User.findOne({ email: req.body.email })
     .then(user => {
@@ -45,7 +42,7 @@ router.post("/login", (req, res, next) => {
           message: "Auth failed"
         });
       }
-      const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id}, "secret_this_should_be_longer", {expiresIn: "1h"});
+      const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id}, process.env.JWT_KEY, {expiresIn: "1h"});
       res.status(200).json({
         token: token,
         expiresIn: 3600,
@@ -54,17 +51,8 @@ router.post("/login", (req, res, next) => {
     })
     .catch(err => {
       return res.status(401).json({
-        message: "Auth failed"
+        message: "Invalid authentication credentials!"
     });
   });
-});
-=======
-const router = express.Router();
-const UserController = require("../controllers/user");
+}
 
-router.post("/signup", UserController.createUser);
-
-router.post("/login", UserController.userLogin);
->>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
-
-module.exports = router;

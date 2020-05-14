@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+<mat-toolbar color="primary">MyMessages</mat-toolbar>
+=======
+>>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
 <mat-toolbar color="primary">
   <span>
     <a routerLink="/">QStack</a>
@@ -8,13 +14,24 @@
       <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>
     </li>
     <li *ngIf="!userIsAuthenticated">
+<<<<<<< HEAD
       <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
     </li>
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
+=======
+      <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
+>>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
     </li>
     <li *ngIf="userIsAuthenticated">
       <button mat-button (click)="onLogout()">Logout</button>
     </li>
   </ul>
 </mat-toolbar>
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a

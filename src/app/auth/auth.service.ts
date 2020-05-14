@@ -3,6 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
+=======
+import { environment } from '../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl + "/user/";
+>>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
 
 @Injectable({providedIn: "root"})
 export class AuthService {
@@ -32,15 +38,28 @@ export class AuthService {
 
   createUser(email: string, password: string){
     const authData: AuthData = {email: email, password: password};
+<<<<<<< HEAD
     this.http.post("http://localhost:3000/api/user/signup", authData)
       .subscribe(response => {
         console.log(response);
       });
+=======
+    this.http.post(BACKEND_URL + "/signup", authData)
+      .subscribe(() => {
+        this.router.navigate["/"];
+    }, error => {
+      this.authStatusListener.next(false);
+    });
+>>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
   }
 
   login(email: string, password: string){
     const authData: AuthData = {email: email, password: password};
+<<<<<<< HEAD
     this.http.post<{token: string, expiresIn: number, userId: string}>("http://localhost:3000/api/user/login", authData)
+=======
+    this.http.post<{token: string, expiresIn: number, userId: string}>(BACKEND_URL + "/login", authData)
+>>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
       .subscribe(response => {
         const token = response.token;
         this.token = token;
@@ -56,7 +75,13 @@ export class AuthService {
           this.saveAuthData(token, expirationDate, this.userId);
           this.router.navigate(['/']);
         }
+<<<<<<< HEAD
       })
+=======
+      }, error => {
+        this.authStatusListener.next(false);
+      });
+>>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
   }
 
   autoAuthUser(){

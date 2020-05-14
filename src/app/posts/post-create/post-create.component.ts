@@ -1,17 +1,45 @@
+<<<<<<< HEAD
 import { Component, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PostsService } from '../posts.service';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from '../post.model';
 import { mimeType } from "./mime-type.validator";
+=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+import { Component} from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { PostsService } from '../posts.service';
+=======
+=======
+>>>>>>> Stashed changes
+import { Component, OnInit, OnDestroy} from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { PostsService } from '../posts.service';
+import { ActivatedRoute } from '@angular/router';
+import { Post } from '../post.model';
+import { mimeType } from "./mime-type.validator";
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+>>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
 
 @Component({
   selector: 'app-post-create',
   templateUrl: './post-create.component.html',
   styleUrls: ['./post-create.component.css']
 })
+<<<<<<< HEAD
 
 export class PostCreateComponent implements OnInit {
+=======
+<<<<<<< Updated upstream
+export class PostCreateComponent {
+>>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
   enteredTitle = '';
   enteredContent = '';
   post: Post;
@@ -23,7 +51,39 @@ export class PostCreateComponent implements OnInit {
 
   constructor(public postsService: PostsService, public route: ActivatedRoute){}
 
+<<<<<<< HEAD
   ngOnInit(){
+=======
+<<<<<<< Updated upstream
+  constructor(public postsService: PostsService){}
+=======
+
+=======
+>>>>>>> Stashed changes
+export class PostCreateComponent implements OnInit, OnDestroy {
+  enteredTitle = '';
+  enteredContent = '';
+  post: Post;
+  isLoading = false;
+  form: FormGroup;
+  imagePreview: string;
+  private mode = 'create';
+  private postId: string;
+  private authStatusSub: Subscription;
+
+  constructor(
+    public postsService: PostsService,
+    public route: ActivatedRoute,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(){
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(authStatus => {
+        this.isLoading = false;
+      });
+>>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
     this.form = new FormGroup({
       title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
@@ -57,6 +117,10 @@ export class PostCreateComponent implements OnInit {
       }
     });
   }
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
 
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
@@ -85,5 +149,13 @@ export class PostCreateComponent implements OnInit {
         );
     }
     this.form.reset();
+  }
+
+  ngOnDestroy(){
+    this.authStatusSub.unsubscribe();
+  }
+
+  ngOnDestroy(){
+    this.authStatusSub.unsubscribe();
   }
 }
