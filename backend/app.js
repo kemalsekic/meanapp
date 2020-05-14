@@ -3,12 +3,7 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 app.use(bodyParser.json());
-=======
-=======
->>>>>>> Stashed changes
 mongoose.connect("mongodb+srv://kemalsekic:" + process.env.MONGO_ATLAS_PW + "@cluster0-id557.mongodb.net/kremica?")
   .then(() => {
     console.log('Connected to database!')
@@ -20,10 +15,6 @@ mongoose.connect("mongodb+srv://kemalsekic:" + process.env.MONGO_ATLAS_PW + "@cl
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use("/images", express.static(path.join("images")));
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
