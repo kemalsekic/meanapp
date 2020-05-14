@@ -40,12 +40,7 @@ export class PostListComponent implements OnInit, OnDestroy{
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
       });
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
-      this.userIsAuthenticated = this.authService.getisAuth();
+    this.userIsAuthenticated = this.authService.getisAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe(isAuthenticated =>{
@@ -65,14 +60,9 @@ export class PostListComponent implements OnInit, OnDestroy{
     this.isLoading = true;
     this.postsService.deletePost(postId).subscribe(() => {
       this.postsService.getPosts(this.postsPerPage, this.currentPage);
-<<<<<<< HEAD
-    });
-=======
     }, () => {
       this.isLoading = false;
     });
->>>>>>> Stashed changes
->>>>>>> 8e2c8daecafee80adf2baedd9d851df5b8d9bf7a
   }
 
   ngOnDestroy(){
