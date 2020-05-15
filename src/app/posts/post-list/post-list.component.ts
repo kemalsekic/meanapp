@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Post} from '../post.model';
 import { PostsService } from '../posts.service';
 import {Subscription} from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-post-list',
@@ -15,19 +17,30 @@ export class PostListComponent implements OnInit, OnDestroy{
     {title: 'Third Post', content: 'This is the third post\'s content'}
   ];*/
   posts: Post[] = [];
+  isLoading = false;
+  totalPosts = 0;
+  postsPerPage = 2;
+  currentPage = 1;
+  pageSizeOptions = [1, 2, 5, 10];
+  userIsAuthenticated = false;
+  userId: string;
   private postsSub: Subscription;
+  private authStatusSub: Subscription;
 
-  constructor(public postsService: PostsService) {}
+  constructor(public postsService: PostsService, private authService: AuthService) {}
 
   ngOnInit(){
-    this.postsService.getPosts();
-    this.postsSub = this.postsService.getPostUpdatedListener()
-      .subscribe((posts: Post []) => {
-        this.posts = posts;
+    this.isLoading = true;
+    this.postsService.getPosts(this.postsPerPage, this.currentPage);
+    this.userId = this.authService.getUserId();
+    this.postsSub = this.postsService
+      .getPostUpdatedListener()
+      .subscribe((postData: {posts: Post [], postCount: number}) => {
+        this.isLoading = false;
+        this.totalPosts = postData.postCount;
+        this.posts = postData.posts;
       });
-<<<<<<< Updated upstream
-=======
-      this.userIsAuthenticated = this.authService.getisAuth();
+    this.userIsAuthenticated = this.authService.getisAuth();
     this.authStatusSub = this.authService
       .getAuthStatusListener()
       .subscribe(isAuthenticated =>{
@@ -50,10 +63,10 @@ export class PostListComponent implements OnInit, OnDestroy{
     }, () => {
       this.isLoading = false;
     });
->>>>>>> Stashed changes
   }
 
   ngOnDestroy(){
     this.postsSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 }

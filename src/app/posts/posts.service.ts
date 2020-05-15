@@ -2,32 +2,19 @@ import {Post} from './post.model';
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs';
 import { HttpClient } from "@angular/common/http";
-<<<<<<< Updated upstream
-=======
 import { Router } from "@angular/router";
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 const BACKEND_URL = environment.apiUrl + "/posts/";
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
 @Injectable({providedIn: 'root'})
 export class PostsService{
   private posts: Post[] = [];
-  private postsUpdated = new Subject<Post []>();
+  private postsUpdated = new Subject<{posts: Post [], postCount: number}>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-<<<<<<< Updated upstream
-    getPosts(){
-      this.http.get<{message: string, posts: Post[]}>('http://localhost:3000/api/posts')
-      .subscribe((postData) => {
-        this.posts = postData.posts;
-        this.postsUpdated.next([...this.posts]);
-=======
     getPosts(postsPerPage: number, currentPage: number){
       const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
       this.http.get<{message: string; posts: any, maxPosts: number}>(BACKEND_URL + queryParams)
@@ -45,10 +32,8 @@ export class PostsService{
       };
       }))
       .subscribe((transformedPostData) => {
-        console.log(transformedPostData);
         this.posts = transformedPostData.posts;
         this.postsUpdated.next({posts: [...this.posts],postCount: transformedPostData.maxPosts});
->>>>>>> Stashed changes
       });
     }
 
@@ -56,16 +41,6 @@ export class PostsService{
       return this.postsUpdated.asObservable();
     }
 
-<<<<<<< Updated upstream
-    addPost(title: string, content: string){
-      const post: Post = {id: null, title: title, content: content};
-      this.http.post<{message: string}>('http://localhost:3000/api/posts', post)
-      .subscribe((responseData) => {
-        console.log(responseData.message);
-      });
-      this.posts.push(post);
-      this.postsUpdated.next([...this.posts]);
-=======
     getPost(id: string) {
       return this.http.get<{_id: string; title: string; content: string; imagePath: string; creator: string;}>(BACKEND_URL + id);
     }
@@ -109,10 +84,5 @@ export class PostsService{
 
     deletePost(postId: string){
       return this.http.delete(BACKEND_URL + postId);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     }
-
 }
